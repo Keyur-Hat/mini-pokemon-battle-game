@@ -72,25 +72,87 @@ document.getElementById('attack').addEventListener('click',function attack(){
 
   
   const opponentHP = Number(opponentPokemon.hp);
-  oppHp.innerHTML = `<p>${parseInt(opponentHP)}</p>`;
+  oppHp.innerHTML = `<p>${parseInt(opponentHP)}</p>`
+  oppBar.style.width=`${opponentPokemon.hp}%`
 
-  console.log("Opponent HP:", opponentPokemon.hp);
+  console.log("Opponent HP:", opponentPokemon.hp)
 
 
-  // Check if opponent has fainted
-  if (opponentPokemon.hp <= 0) {
-    console.log(`${opponentPokemon.Name} fainted! ${playerPokemon.Name} wins!`);
-    // You can add additional actions here, like displaying a message or ending the battle
-  } else {
-    console.log(`${playerPokemon.Name} attacked ${opponentPokemon.Name} and dealt ${damageDealt} damage.`);
-  }
+
+  
+  logToConsole(`PLAYER : ${playerPokemon.Name} attacked ${opponentPokemon.Name} and dealt ${damageDealt} damage.`)
+  
     console.log("attack")
+    oppTurn()
 })
 
 document.getElementById('defend').addEventListener('click',function defend(){
-    console.log("defend")
+  playerPokemon.defence+=10
+  logToConsole(`PLAYER : ${playerPokemon.Name} defended.`)
+    oppTurn()
 })
 
 document.getElementById('power-up').addEventListener('click',function powerUp(){
-    console.log("power-up")
+  playerPokemon.attack+=10
+  logToConsole(`PLAYER : ${playerPokemon.Name} Powered-up`)
+    oppTurn()
 })
+
+function oppTurn() {
+  let action;
+
+  if (opponentPokemon.hp >= 70) {
+      
+      const randomChance = Math.random()
+      if (randomChance < 0.7) {
+          action = "power-up"
+      } else {
+        
+          action = "attack"
+      }
+  } else if (opponentPokemon.hp < 30) {
+      const randomChance=Math.random()
+      if(randomChance < 0.5){
+      
+      action = "defend"
+      }
+  } else {
+      
+      action = "attack"
+  }
+
+  
+  switch (action) {
+      case "power-up":
+          opponentPokemon.attack+=10
+          logToConsole(`AI : ${opponentPokemon.Name} Powered-up`)
+          break;
+      case "defend":
+          opponentPokemon.defence+=5
+          logToConsole(`AI : ${opponentPokemon.Name} Defended`)
+          break;
+      case "attack":
+          
+          const damageDealt = opponentPokemon.attack
+
+          
+
+          
+          playerPokemon.hp = (playerPokemon.hp+playerPokemon.defence)-damageDealt
+
+          
+          playerHp.innerHTML = `<p>${playerPokemon.hp}</p>`
+          playerBar.style.width=`${playerPokemon.hp}%`
+
+          
+          logToConsole(`AI : ${opponentPokemon.Name} attacked ${playerPokemon.Name} and dealt ${damageDealt} damage.`)
+          console.log("Player HP:", playerPokemon.hp)
+          break;
+  }
+}
+
+function logToConsole(message) {
+  const consoleBox = document.getElementById('info');
+  consoleBox.innerHTML += `<p>${message}</p>`;
+  consoleBox.scrollTop = consoleBox.scrollHeight; // Automatically scroll to the bottom
+}
