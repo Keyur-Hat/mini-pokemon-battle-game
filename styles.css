@@ -177,8 +177,16 @@ button{
   background-color: green;
 }
 
+#defend:hover{
+  background-color: rgb(105, 173, 105);
+}
+
 #power-up{
   background-color: blue;
+}
+
+#power-up:hover{
+  background-color: rgb(97, 97, 156);
 }
 
 #info{
@@ -208,4 +216,32 @@ button{
   color: white;
   background-color: black;
   border:5px solid purple
+}
+
+#win-message{
+  position: absolute;
+  width:735px;
+  height: 500px;
+  background-color: rgb(255, 136, 0,0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  font-weight: bold;
+  display: none;
+  
+}
+
+#lose-message{
+  position:absolute;
+  width:735px;
+  height: 500px;
+  background-color: rgb(255, 136, 0,0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  font-weight: bold;
+  
+  
 }

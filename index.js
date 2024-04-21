@@ -13,6 +13,9 @@ let playerHp=document.getElementById("player-Hp")
 let playerBar=document.getElementById("player-bar-fill")
 let oppBar=document.getElementById("opp-bar-fill")
 
+let winM=document.getElementById("win-message")
+let loseM=document.getElementById("lose-message")
+
 const charmander = {
     Name :"Charmander",
     hp:100,
@@ -74,6 +77,11 @@ document.getElementById('attack').addEventListener('click',function attack(){
   const opponentHP = Number(opponentPokemon.hp);
   oppHp.innerHTML = `<p>${parseInt(opponentHP)}</p>`
   oppBar.style.width=`${opponentPokemon.hp}%`
+
+  if(opponentPokemon.hp<=0){
+    winM.style.display="flex"
+  }
+
 
   console.log("Opponent HP:", opponentPokemon.hp)
 
@@ -144,6 +152,10 @@ function oppTurn() {
           playerHp.innerHTML = `<p>${playerPokemon.hp}</p>`
           playerBar.style.width=`${playerPokemon.hp}%`
 
+          if(playerPokemon.hp<=0){
+            loseM.style.display="flex"
+          }
+
           
           logToConsole(`AI : ${opponentPokemon.Name} attacked ${playerPokemon.Name} and dealt ${damageDealt} damage.`)
           console.log("Player HP:", playerPokemon.hp)
@@ -154,5 +166,5 @@ function oppTurn() {
 function logToConsole(message) {
   const consoleBox = document.getElementById('info');
   consoleBox.innerHTML += `<p>${message}</p>`;
-  consoleBox.scrollTop = consoleBox.scrollHeight; // Automatically scroll to the bottom
+  consoleBox.scrollTop = consoleBox.scrollHeight; 
 }
